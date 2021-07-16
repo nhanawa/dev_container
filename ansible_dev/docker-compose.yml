@@ -1,0 +1,7 @@
+version: '3'
+services:
+  ansible:
+    container_name: dev_env
+    build: .
+    tty: true
+    working_dir: '/root/'
