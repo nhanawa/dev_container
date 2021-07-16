@@ -1,4 +1,4 @@
-FROM centos: 8
+FROM centos8_ssh:latest
 
 RUN yum -y update; yum clean all
 RUN yum install -y git
