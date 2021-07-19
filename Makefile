@@ -1,9 +1,15 @@
 .PHONY: build run
 
 
-build:
-		docker build -t ${IMG_NAME} ./${IMG_NAME}/
+build_base:
+		docker build -t centos8_ssh ./centos8_ssh/
 
-run:
-	        docker run --privileged --name ${CONTAINER_NAME} -d ${IMG_NAME}
+build_ansible:
+		docker build -t ansible_dev ./ansible_dev/
+
+run_base:
+	        docker run --privileged --name ${CONTAINER_NAME} -d centos8_ssh
+run_ansible:
+	        cd ansible_dev
+	        docker-compose up -d
 
