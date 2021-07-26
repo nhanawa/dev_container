@@ -20,9 +20,8 @@ RUN sudo dnf install python38 -y
 RUN curl -kL https://bootstrap.pypa.io/get-pip.py | python3
 RUN which pip3
 
-RUN /usr/local/pip3/bin/pip3 install --upgrade pip
+RUN pip3 install --upgrade pip
 
-RUN /usr/local/pip3/bin/pip3 install epel-release
-RUN /usr/local/pip3/bin/pip3 install ansible
-RUN /usr/local/pip3/bin/pip3 install ansible-lint
-RUN /usr/local/pip3/bin/pip3 install yamllint
+RUN pip3 install "ansible==2.10.3"
+RUN pip3 install ansible-lint
+RUN pip3 install yamllint
