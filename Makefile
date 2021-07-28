@@ -11,5 +11,4 @@ run_base:
 	        docker run --privileged --name ${CONTAINER_NAME} -d centos8_ssh
 run_ansible:
 	        cd ansible_dev
-	        docker-compose up -d
-
+	        docker run -d ansible_dev
