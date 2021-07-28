@@ -9,7 +9,13 @@ RUN export PATH="${PYENV_ROOT}/bin:${PATH}"
 RUN eval "$(/usr/local/pyenv/bin/pyenv init -)" >> /etc/profile.d/pyenv.sh
 RUN exec $SHELL -l
 
-RUN yum -y install bzip2-devel gcc-c++ libffi-devel openssl-devel readline-devel sqlite-devel zlib-devel
+RUN yum -y install bzip3-devel gcc-c++ libffi-devel openssl-devel readline-devel sqlite-devel zlib-devel vim
+
+RUN echo "alias cp='cp -i'" >> /root/.bashrc
+RUN echo "alias mv='mv -i'" >> /root/.bashrc
+RUN echo "alias rm='rm -i'" >> /root/.bashrc
+RUN echo "alias la='ls -al'" >> /root/.bashrc
+RUN echo "alias ll='ls -l'" >> /root/.bashrc
 
 RUN sudo -i
 RUN /usr/local/pyenv/bin/pyenv install 3.6.8
