@@ -12,18 +12,17 @@ RUN exec $SHELL -l
 RUN yum -y install bzip2-devel gcc-c++ libffi-devel openssl-devel readline-devel sqlite-devel zlib-devel
 
 RUN sudo -i
-RUN /usr/local/pyenv/bin/pyenv install 3.9.1
-RUN /usr/local/pyenv/bin/pyenv global 3.9.1
+RUN /usr/local/pyenv/bin/pyenv install 3.6.8
+RUN /usr/local/pyenv/bin/pyenv global 3.6.8
 RUN /usr/local/pyenv/bin/pyenv rehash
 
-RUN sudo dnf install python38 -y
+RUN sudo dnf install python36 -y
 RUN curl -kL https://bootstrap.pypa.io/get-pip.py | python3
-RUN which pip3
+
+RUN pip3 install --upgrade pip
 
 RUN pip3 install pipenv
 
-##RUN pip3 install --upgrade pip
-
-##RUN pip3 install "ansible==2.10.3"
-##RUN pip3 install ansible-lint
-##RUN pip3 install yamllint
+RUN pipenv install ansible==2.10.3
+RUN pipenv install ansible-lint==5.0.12
+RUN pipenv install yamllint==1.26.0
