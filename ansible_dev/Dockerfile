@@ -14,7 +14,8 @@ RUN git clone https://github.com/pyenv/pyenv.git /usr/local/pyenv
 ENV PYENV_ROOT="/usr/local/pyenv"
 ENV PATH="${PYENV_ROOT}/bin:${PATH}"
 # ENV eval "$(/usr/local/pyenv/bin/pyenv init -)" >> /etc/profile.d/pyenv.sh
-RUN eval "$(/usr/local/pyenv/bin/pyenv init --path)"
+# RUN eval "$(/usr/local/pyenv/bin/pyenv init --path)"
+ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${PATH}"
 RUN echo 'eval "$(/usr/local/pyenv/bin/pyenv init --path)"' >> /etc/profile.d/pyenv.sh
 
 RUN yum -y install bzip2-devel gcc gcc-c++ git libffi-devel make openssl-devel readline-devel sqlite-devel zlib-devel
