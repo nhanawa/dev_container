@@ -13,8 +13,6 @@ RUN echo "alias ll='ls -l'" >> /root/.bashrc
 RUN git clone https://github.com/pyenv/pyenv.git /usr/local/pyenv
 ENV PYENV_ROOT="/usr/local/pyenv"
 ENV PATH="${PYENV_ROOT}/bin:${PATH}"
-# ENV eval "$(/usr/local/pyenv/bin/pyenv init -)" >> /etc/profile.d/pyenv.sh
-# RUN eval "$(/usr/local/pyenv/bin/pyenv init --path)"
 ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${PATH}"
 RUN echo 'eval "$(/usr/local/pyenv/bin/pyenv init --path)"' >> /etc/profile.d/pyenv.sh
 
@@ -32,12 +30,9 @@ RUN pip3 install pipenv
 #RUN pipenv install ansible-lint==5.0.12
 #RUN pipenv install yamllint==1.26.0
 
-COPY Pipfile /
-COPY Pipfile.lock /
-RUN pipenv install --system
+RUN mkdir /opt/pipenv
+COPY Pipfile /opt/pipenv
+COPY Pipfile.lock /opt/pipenv
+RUN cd /opt/pipenv; pipenv install --system
 
 RUN /usr/local/pyenv/bin/pyenv rehash
-
-RUN mkdir /opt/pipenv
-RUN mv Pipfile /opt/pipenv
-RUN mv Pipfile.lock /opt/pipenv
