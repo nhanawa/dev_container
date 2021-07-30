@@ -7,7 +7,6 @@ RUN yum install -y git gcc make bzip2-devel gcc gcc-c++ git libffi-devel make op
 # Clone pyenv & initial settings
 RUN git clone https://github.com/pyenv/pyenv.git /usr/local/pyenv
 ENV PYENV_ROOT="/usr/local/pyenv"
-ENV PATH="${PYENV_ROOT}/bin:${PATH}"
 ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${PATH}"
 RUN echo 'eval "$(/usr/local/pyenv/bin/pyenv init --path)"' >> /etc/profile.d/pyenv.sh
 
