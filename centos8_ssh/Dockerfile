@@ -26,5 +26,13 @@ VOLUME ["/run"]
 
 EXPOSE 22
 
+# Add .bash configuration
+RUN echo "alias cp='cp -i'" >> /root/.bashrc
+RUN echo "alias mv='mv -i'" >> /root/.bashrc
+RUN echo "alias rm='rm -i'" >> /root/.bashrc
+RUN echo "alias la='ls -al'" >> /root/.bashrc
+RUN echo "alias ll='ls -l'" >> /root/.bashrc
+
+
 CMD ["/usr/sbin/init"]
 

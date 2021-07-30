@@ -1,22 +1,29 @@
 FROM centos8_ssh:latest
 
+# Install required packages
 RUN yum -y update; yum clean all
-RUN yum install -y git gcc make
+RUN yum install -y git gcc make bzip2-devel gcc gcc-c++ git libffi-devel make openssl-devel readline-devel sqlite-devel zlib-devel
 
+# Clone pyenv & initial settings
 RUN git clone https://github.com/pyenv/pyenv.git /usr/local/pyenv
-RUN echo "export PYENV_ROOT=/usr/local/pyenv"
-RUN export PATH="${PYENV_ROOT}/bin:${PATH}"
-RUN eval "$(/usr/local/pyenv/bin/pyenv init -)" >> /etc/profile.d/pyenv.sh
-RUN exec $SHELL -l
+ENV PYENV_ROOT="/usr/local/pyenv"
+ENV PATH="${PYENV_ROOT}/shims:${PYENV_ROOT}/bin:${PATH}"
+RUN echo 'eval "$(/usr/local/pyenv/bin/pyenv init --path)"' >> /etc/profile.d/pyenv.sh
 
-RUN sudo -i
-RUN /usr/local/pyenv/bin/pyenv install 3.9.1
-RUN /usr/local/pyenv/bin/pyenv global 3.9.1
+# Install pyenv
+RUN /usr/local/pyenv/bin/pyenv install 3.8.6
+RUN /usr/local/pyenv/bin/pyenv global 3.8.6
 RUN /usr/local/pyenv/bin/pyenv rehash
 
-RUN pip install --upgrade pip
+# Install Ansible & related packages for dev
+RUN pip3 install --upgrade pip
+RUN pip3 install pipenv
 
-RUN pip install epel-release
-RUN pip install ansible
-RUN pip install ansible-lint
-RUN pip install yamllint
+# Install Pakcages
+RUN mkdir /opt/pipenv
+COPY Pipfile /opt/pipenv
+COPY Pipfile.lock /opt/pipenv
+RUN cd /opt/pipenv; pipenv install --system
+
+# Reflesh Shims
+RUN /usr/local/pyenv/bin/pyenv rehash
