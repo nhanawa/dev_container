@@ -1,0 +1,48 @@
+version: "2.4"
+
+services:
+  ansible_dev:
+    hostname: ansible_dev_${USERNAME}
+    container_name: ansible_dev_${USERNAME}
+    image: gitlab-docker-reg.local/cloud/automation/dev_container/ansible_dev:1.0.0
+    build: 
+      #context: dev_container/ansible_dev 
+      context: ansible_dev 
+      network: host
+      args:    
+        - HTTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+        - HTTPS_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+        - http_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+        - https_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+    restart: unless-stopped
+    networks:
+      - network_1.1
+#     frontend:
+#       ipv4_address: '172.24.0.2'
+#       ipv6_address: '2001:db8:14b:1000:ffff::2'
+#    ports:
+#      - "22:22"
+    volumes:
+      - ./share:/root/share
+
+    environment:
+      - HTTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+      - HTTPS_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+      - http_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+      - https_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+
+networks:
+# frontend:
+#   enable_ipv6: true
+#   driver: "bridge"
+#   driver_opts:
+#     com.docker.network.bridge.name: "ssh_frontend"
+#     com.docker.network.bridge.enable_ip_masquerade: "true"
+#   ipam:
+#     config:
+#     - subnet: "172.24.0.0/24"
+#       gateway: "172.24.0.1"
+#     - subnet: "2001:db8:14b:1000:ffff::/80"
+#       gateway: "2001:db8:14b:1000:ffff::1"
+  network_1.1:
+    external: true
