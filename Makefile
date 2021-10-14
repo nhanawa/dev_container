@@ -37,3 +37,12 @@ destroy_ansible_dev:
 
 exec_ansible_dev: 
 		docker exec -it dev_${USR} /bin/bash
+#
+# Run container with docker-compose
+#
+run_docker_compose:
+		USERNAME=`pwd | cut -d'/' -f4 | cut -d'_' -f2`
+		rm -rf ./.env
+		echo ${USERNAME} >> ./.env
+		docker-compose up -d
+
