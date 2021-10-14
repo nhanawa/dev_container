@@ -24,6 +24,7 @@ services:
 #      - "22:22"
     volumes:
       - ./share:/root/share
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
 
     environment:
       - HTTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128
