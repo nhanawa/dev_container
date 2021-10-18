@@ -26,6 +26,7 @@ services:
     volumes:
       - ./share:/root/share
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
+      - /var/run/docker.sock:/var/run/docker.sock
 
     environment:
       - HTTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128

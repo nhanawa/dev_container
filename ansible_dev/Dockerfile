@@ -24,6 +24,15 @@ RUN mkdir /opt/pipenv
 COPY Pipfile /opt/pipenv
 COPY Pipfile.lock /opt/pipenv
 RUN cd /opt/pipenv; pipenv install --system
+RUN pip3 install molecule pre-commit molecule-docker
 
 # Reflesh Shims
 RUN /usr/local/pyenv/bin/pyenv rehash
+
+# Install Docker for molecule
+RUN yum install -y yum-utils
+RUN yum-config-manager \
+    --add-repo \
+    https://download.docker.com/linux/centos/docker-ce.repo
+RUN yum-config-manager --disable docker-ce-nightly
+RUN yum install -y docker-ce-cli

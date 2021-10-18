@@ -23,7 +23,7 @@ destroy_base:
 # Make commands for ansible_dev
 #
 build_ansible_dev:
-	docker build -t ansible_dev --network host --build-arg HTTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128 --build-arg HTTPS_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128  ./ansible_dev/ --no-cache
+	docker build -t ansible_dev --network host --build-arg HTTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128 --build-arg HTTPS_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128  ./ansible_dev/
 rmi_ansible_dev:
 		docker rmi ansible_dev
 run_ansible_dev:
