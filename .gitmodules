@@ -1,0 +1,3 @@
+[submodule "centos8_ssh/vimrc"]
+	path = centos8_ssh/vimrc
+	url = http://gitlab-docker-reg.local:8080/cloud/automation/vimrc.git
