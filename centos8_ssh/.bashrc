@@ -70,3 +70,11 @@ function flush_proxy(){
 	done
 	env|grep -i proxy
 }
+export http_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+export HTTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+export ftp_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+export FTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+export https_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+export HTTPS_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+export no_proxy=gitlab-docker-reg.local,240b:c0e0:103:53e9:1:2:0:2,localhost,127.0.0.1
+export NO_PROXY=gitlab-docker-reg.local,240b:c0e0:103:53e9:1:2:0:2,localhost,127.0.0.1

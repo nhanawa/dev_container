@@ -4,7 +4,7 @@
 # Make commands for centos8_ssh
 #
 build_base:
-	docker build -t centos8_ssh --network host --build-arg HTTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128 --build-arg HTTPS_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128 ./centos8_ssh/ --no-cache
+	docker build -t centos8_ssh --network host --build-arg HTTP_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128 --build-arg HTTPS_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128 ./centos8_ssh/
 run_base:
 	        docker run --privileged --name centos8_ssh_${USR} -d centos8_ssh
 exec_base:
@@ -44,3 +44,10 @@ run_docker_compose:
 		export USERNAME=`pwd | cut -d'/' -f4 | cut -d'_' -f2` ;  docker-compose up -d
 setup_ssh:
 		USERNAME=`pwd | cut -d'/' -f4 | cut -d'_' -f2` ; DOCKERID=`docker ps -a | grep $$USERNAME |cut -d' ' -f1`; IP=`docker exec -it  $$DOCKERID ip a | grep -A4 eth0 | grep inet | cut -d' ' -f6 | cut -d'/' -f1` ; echo $$IP $$USERNAME >> /etc/hosts
+
+#
+# Prerequisites
+#
+create_network:
+	docker network create --ipv6  --driver=bridge  --subnet=fd5a:ceb9:ed8d:1::/64 network_1.2  -o com.docker.network.bridge.name="network_1.2" -o com.docker.network.bridge.enable_ip_masquerade="true"
+
