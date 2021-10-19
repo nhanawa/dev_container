@@ -24,7 +24,8 @@ RUN mkdir /opt/pipenv
 COPY Pipfile /opt/pipenv
 COPY Pipfile.lock /opt/pipenv
 RUN cd /opt/pipenv; pipenv install --system
-RUN pip3 install molecule pre-commit molecule-docker jmespath netaddr
+RUN pip3 install molecule pre-commit molecule-docker jmespath netaddr selinux
+RUN yum install -y python3-libselinux
 
 # Reflesh Shims
 RUN /usr/local/pyenv/bin/pyenv rehash
