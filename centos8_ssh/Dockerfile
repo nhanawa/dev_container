@@ -1,7 +1,15 @@
 FROM centos:centos8
 ENV container docker
 
+# Proxy setting for Kiba
+RUN echo 'nameserver 240b:c0e0:101:5476:1c01:2::a' > /etc/resolv.conf && echo 'proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128' >> /etc/yum.conf
+RUN echo "240b:c0e0:103:53e9:1:2:1:101 gitlab-docker-reg gitlab-docker-reg.local kiba-gitlab" >> /etc/hosts
+
+# Install packages
 RUN yum -y update; yum clean all
+RUN yum install -y wget net-tools vim epel-release
+RUN yum install -y sshpass
+RUN yum groupinstall -y "Development Tools"
 
 RUN systemctl mask dev-mqueue.mount dev-hugepages.mount \
     systemd-remount-fs.service sys-kernel-config.mount \
@@ -26,7 +34,12 @@ VOLUME ["/run"]
 
 EXPOSE 22
 
+# Add .vimrc
+COPY ./vimrc/.vimrc /root/
+COPY ./vimrc/en.utf-8.add /usr/share/vim/vimfiles/spell/en.utf-8.add
+
 # Add .bash configuration
+COPY ./.bashrc /root/
 RUN echo "alias cp='cp -i'" >> /root/.bashrc
 RUN echo "alias mv='mv -i'" >> /root/.bashrc
 RUN echo "alias rm='rm -i'" >> /root/.bashrc
