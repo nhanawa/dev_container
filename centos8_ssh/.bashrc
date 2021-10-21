@@ -52,7 +52,7 @@ function log() {
 
 # execute ansible playbook
 function ansible-playbook-wrapper() {
-  /usr/local/bin/ansible-playbook "$@"
+  /usr/local/pyenv/shims/ansible-playbook "$@"
   if [ $? -ne 0 ]; then
       log "ERROR" "asnible-playbook ${@} was failed"
   else
