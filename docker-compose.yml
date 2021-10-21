@@ -4,7 +4,7 @@ services:
   ansible_dev:
     hostname: ansible_dev_${USERNAME}
     container_name: ansible_dev_${USERNAME}
-    image: gitlab-docker-reg.local/cloud/automation/dev_container/ansible_dev:1.0.2
+    image: gitlab-docker-reg.local/cloud/automation/dev_container/ansible_dev:1.0.4
     #image: ansible_dev
     build: 
       #context: dev_container/ansible_dev 
