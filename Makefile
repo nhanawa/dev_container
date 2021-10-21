@@ -40,11 +40,17 @@ exec_ansible_dev:
 #
 # Run container with docker-compose
 #
-run_docker_compose:
+run_docker_compose_ope:
 		export USERNAME=`pwd | cut -d'/' -f4 | cut -d'_' -f2` ;  docker-compose up -d
-setup_ssh:
+
+run_docker_compose_kop:
+		export USERNAME=`pwd | cut -d'/' -f3 | cut -d'_' -f2` ;  docker-compose up -d
+
+setup_ssh_ope:
 		USERNAME=`pwd | cut -d'/' -f4 | cut -d'_' -f2` ; DOCKERID=`docker ps -a | grep $$USERNAME |cut -d' ' -f1`; IP=`docker exec -it  $$DOCKERID ip a | grep -A4 eth0 | grep inet | cut -d' ' -f6 | cut -d'/' -f1` ; echo $$IP $$USERNAME >> /etc/hosts
 
+setup_ssh_kop:
+		USERNAME=`pwd | cut -d'/' -f3 | cut -d'_' -f2` ; DOCKERID=`docker ps -a | grep $$USERNAME |cut -d' ' -f1`; IP=`docker exec -it  $$DOCKERID ip a | grep -A4 eth0 | grep inet | cut -d' ' -f6 | cut -d'/' -f1` ; echo $$IP $$USERNAME >> /etc/hosts
 #
 # Prerequisites
 #
