@@ -28,6 +28,8 @@ services:
       - HTTPS_PROXY=http://[240b:c0e0:101:5476:1c01:2::a]:3128
       - http_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
       - https_proxy=http://[240b:c0e0:101:5476:1c01:2::a]:3128
+    extra_hosts:
+            - gitlab-docker-reg gitlab-docker-reg.local kiba-gitlab:240b:c0e0:103:53e9:1:2:1:101
 networks:
   network_1.2:
     external: true
