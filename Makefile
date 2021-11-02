@@ -1,5 +1,18 @@
 .PHONY: build run
 
+
+#
+# Setup docker-compose directory
+#
+
+setup_directory:
+		USERNAME=`pwd | sed 's/.*wk_\([^/]*\).*/\1/'` &&\
+		git checkout -B $$USERNAME &&\
+		cp -rf ansible_dev  centos8_ssh  docker-compose.yml  Makefile share ../
+
+clean_directory:
+		rm -rf ansible_dev  centos8_ssh  docker-compose.yml  Makefile share
+
 #
 # Make commands for centos8_ssh
 #
@@ -41,12 +54,12 @@ exec_ansible_dev:
 # Run container with docker-compose
 #
 run_docker_compose:
-		USERNAME=`pwd | sed 's/.*wk_\([^/]*\).*/\1/'` &&\
-		docker-compose up -d
+		USERNAME=`pwd | sed 's/.*wk_\([^/]*\).*/\1/'` docker-compose up -d
 
 setup_ssh:
 		USERNAME=`pwd | sed 's/.*wk_\([^/]*\).*/\1/'` &&\
 		IP=`docker-compose exec ansible_dev ip a | grep -A4 eth0 | grep inet | cut -d' ' -f6 | cut -d'/' -f1  | tr '\n' ' '` &&\
+		sed -ie "/$$USERNAME$$/d" /etc/hosts &&\
 		echo $$IP $$USERNAME >> /etc/hosts
 
 #
@@ -54,4 +67,5 @@ setup_ssh:
 #
 create_network:
 	docker network create --ipv6  --driver=bridge  --subnet=fd5a:ceb9:ed8d:1::/64 network_1.2  -o com.docker.network.bridge.name="network_1.2" -o com.docker.network.bridge.enable_ip_masquerade="true"
+
 
