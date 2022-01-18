@@ -54,7 +54,8 @@ exec_ansible_dev:
 # Run container with docker-compose
 #
 run_docker_compose:
-		$(eval NAME_THISDIR := $(shell pwd | xargs dirname | xargs basename ))
+		$(eval PATH_THISDIR := $(shell pwd))
+		$(eval NAME_THISDIR := $(shell basename $(PATH_THISDIR)))
 		if !(expr "$(NAME_THISDIR)" : '^wk_' > /dev/null) ; then \
 			echo 'Please make sure that you are in the right directory (wk_<username>).'; \
 			exit 1; \
